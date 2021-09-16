@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "format:check": "prettier --check 'src/**' 'pages/**'",
+    "format:fix": "prettier --write 'src/**' 'pages/**'",
+    "lint:check": "eslint --cache src/** pages/**",
+    "lint:fix": "eslint --cache --fix src/** pages/**",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@ledgerhq/live-app-sdk": "^0.3.0",
@@ -21,8 +25,17 @@
     "@types/react": "17.0.21",
     "@types/react-select": "^4.0.17",
     "@types/styled-components": "^5.1.14",
-    "eslint": "7.32.0",
+    "@typescript-eslint/eslint-plugin": "^4.31.1",
+    "eslint": "^7.32.0",
     "eslint-config-next": "11.1.2",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "husky": "^7.0.0",
+    "lint-staged": "^11.1.2",
+    "prettier": "^2.4.1",
     "typescript": "4.4.3"
+  },
+  "lint-staged": {
+    "*.ts": "yarn run lint:fix"
   }
 }
