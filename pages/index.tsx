@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css, DefaultTheme } from "styled-components";
 import Select from "react-select";
 
-import LedgerLiveApi from "@ledgerhq/live-app-sdk";
-import {
+import LedgerLiveApi, {
   WindowMessageTransport,
   deserializeTransaction,
 } from "@ledgerhq/live-app-sdk";
@@ -94,7 +93,7 @@ const ACTIONS = [
 
 const prettyJSON = (payload: any) => JSON.stringify(payload, null, 2);
 
-export default function DebugApp() {
+const DebugApp = () => {
   const api = useRef<LedgerLiveApi | null>(null);
   const [lastAnswer, setLastAnswer] = useState<any>(undefined);
   const [answerType, setAnswerType] = useState<string>("none");
@@ -115,80 +114,82 @@ export default function DebugApp() {
   }, []);
 
   const execute = useCallback(async () => {
-    if (api.current) {
-      let action;
-      switch (method.value) {
-        case "account.list":
-          action = api.current.listAccounts();
-          break;
-        case "account.request":
-          try {
-            const payload = rawPayload ? JSON.parse(rawPayload) : undefined;
-            action = api.current.requestAccount(payload);
-          } catch (error) {
-            action = Promise.reject(error);
-          }
-          break;
-        case "account.receive":
-          if (account) {
-            action = api.current.receive(account.id);
-          } else {
-            action = Promise.reject(new Error("No accountId selected"));
-          }
-          break;
-        case "transaction.sign":
-          try {
-            const payload = JSON.parse(rawPayload);
-            const transaction = deserializeTransaction(payload.transaction);
-            action = api.current.signTransaction(
-              account.id,
-              transaction,
-              payload?.params
-            );
-          } catch (error) {
-            action = Promise.reject(error);
-          }
-          break;
-        case "transaction.broadcast":
-          try {
-            const rawSignedTransaction = JSON.parse(rawPayload);
-            action = api.current.broadcastSignedTransaction(
-              account.id,
-              rawSignedTransaction
-            );
-          } catch (error) {
-            action = Promise.reject(error);
-          }
-          break;
-        case "currency.list":
-          try {
-            const payload = rawPayload ? JSON.parse(rawPayload) : undefined;
-            action = api.current.listCurrencies(payload);
-          } catch (error) {
-            action = Promise.reject(error);
-          }
-          break;
-        default:
-          action = Promise.resolve();
-      }
+    if (!api.current) {
+      return;
+    }
 
-      try {
-        setAnswerType("pending");
-        setLastAnswer("Waiting...");
-        const result = await action;
-        setAnswerType("success");
-        setLastAnswer(result);
-        if (method.value === "account.list") {
-          setAccounts(result);
-          if (result instanceof Array && result.length) {
-            setAccount(result[0]);
-          }
+    let action;
+    switch (method.value) {
+      case "account.list":
+        action = api.current.listAccounts();
+        break;
+      case "account.request":
+        try {
+          const payload = rawPayload ? JSON.parse(rawPayload) : undefined;
+          action = api.current.requestAccount(payload);
+        } catch (error) {
+          action = Promise.reject(error);
         }
-      } catch (err) {
-        setLastAnswer({ message: err.message });
-        console.log(err);
-        setAnswerType("error");
+        break;
+      case "account.receive":
+        if (account) {
+          action = api.current.receive(account.id);
+        } else {
+          action = Promise.reject(new Error("No accountId selected"));
+        }
+        break;
+      case "transaction.sign":
+        try {
+          const payload = JSON.parse(rawPayload);
+          const transaction = deserializeTransaction(payload.transaction);
+          action = api.current.signTransaction(
+            account.id,
+            transaction,
+            payload?.params
+          );
+        } catch (error) {
+          action = Promise.reject(error);
+        }
+        break;
+      case "transaction.broadcast":
+        try {
+          const rawSignedTransaction = JSON.parse(rawPayload);
+          action = api.current.broadcastSignedTransaction(
+            account.id,
+            rawSignedTransaction
+          );
+        } catch (error) {
+          action = Promise.reject(error);
+        }
+        break;
+      case "currency.list":
+        try {
+          const payload = rawPayload ? JSON.parse(rawPayload) : undefined;
+          action = api.current.listCurrencies(payload);
+        } catch (error) {
+          action = Promise.reject(error);
+        }
+        break;
+      default:
+        action = Promise.resolve();
+    }
+
+    try {
+      setAnswerType("pending");
+      setLastAnswer("Waiting...");
+      const result = await action;
+      setAnswerType("success");
+      setLastAnswer(result);
+      if (method.value === "account.list") {
+        setAccounts(result);
+        if (result instanceof Array && result.length) {
+          setAccount(result[0]);
+        }
       }
+    } catch (err: unknown) {
+      setLastAnswer({ message: err.message });
+      console.log(err);
+      setAnswerType("error");
     }
   }, [method, account, rawPayload]);
 
@@ -206,7 +207,7 @@ export default function DebugApp() {
     (option) => {
       setAccount(option);
     },
-    [setMethod]
+    [setAccount]
   );
 
   const handlePayloadChange = useCallback(
@@ -273,4 +274,6 @@ export default function DebugApp() {
       </Output>
     </AppLoaderPageContainer>
   );
-}
+};
+
+export default DebugApp;
