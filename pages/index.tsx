@@ -1,11 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css, DefaultTheme } from "styled-components";
 import Select from "react-select";
+import Switch from "react-input-switch";
 
 import LedgerLiveApi, {
   WindowMessageTransport,
   deserializeTransaction,
 } from "@ledgerhq/live-app-sdk";
+import getPayloadSignTxPlaceholder from "../src/utils/getPayloadSignTxPlaceholder";
 
 const AppLoaderPageContainer = styled.div`
   display: flex;
@@ -36,7 +38,6 @@ const TextArea = styled.textarea`
 
 const ToolBar = styled.div`
   color: #222;
-  background-color: #ccc;
   padding: 8px 6px;
 `;
 
@@ -62,10 +63,6 @@ const Output = styled.pre`
     `}
 `;
 
-const PAYLOAD_SIGN = {
-  transaction: { family: "ethereum", recipient: "XXX", amount: "1" },
-  params: { useApp: "ethereum" },
-};
 const PAYLOAD_BROADCAST = {
   operation: {},
   signature: "YYY",
@@ -80,7 +77,7 @@ const ACTIONS = [
     value: "transaction.sign",
     label: "Sign Transaction",
     useAccount: true,
-    usePayload: PAYLOAD_SIGN,
+    usePayload: true,
   },
   {
     value: "transaction.broadcast",
@@ -101,6 +98,8 @@ const DebugApp = () => {
   const [accounts, setAccounts] = useState<any>([]);
   const [account, setAccount] = useState<any>(null);
   const [rawPayload, setRawPayload] = useState<any>("");
+
+  const [useFullTx, setUseFullTx] = useState(false);
 
   useEffect(() => {
     const llapi = new LedgerLiveApi(new WindowMessageTransport());
@@ -193,6 +192,18 @@ const DebugApp = () => {
     }
   }, [method, account, rawPayload]);
 
+  useEffect(() => {
+    if (method.value !== "transaction.sign") {
+      return;
+    }
+
+    const { currency: family } = account;
+
+    const placeholder = getPayloadSignTxPlaceholder({ family, useFullTx });
+
+    setRawPayload(prettyJSON(placeholder));
+  }, [method, account, useFullTx]);
+
   const handleMethodChange = useCallback(
     (option) => {
       setMethod(option);
@@ -256,6 +267,15 @@ const DebugApp = () => {
               isSearchable={false}
             />
           </Field>
+        </Row>
+        <Row>
+          Use full transaction:
+          <Switch
+            on={true}
+            off={false}
+            value={useFullTx}
+            onChange={setUseFullTx}
+          />
         </Row>
         <Field>
           Payload:
