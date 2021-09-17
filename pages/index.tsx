@@ -64,9 +64,12 @@ const Output = styled.pre`
 `;
 
 const PAYLOAD_BROADCAST = {
-  operation: {},
-  signature: "YYY",
-  expirationDate: null,
+  accountId: "ACCOUNT_ID",
+  signedTransaction: {
+    operation: {},
+    signature: "SIGNATURE",
+    expirationDate: null,
+  },
 };
 
 const ACTIONS = [
