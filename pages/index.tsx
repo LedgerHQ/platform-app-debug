@@ -2,12 +2,18 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css, DefaultTheme } from "styled-components";
 import Select from "react-select";
 import Switch from "react-input-switch";
+import dynamic from "next/dynamic";
 
 import LedgerLiveApi, {
   WindowMessageTransport,
   deserializeTransaction,
 } from "@ledgerhq/live-app-sdk";
+
 import getPayloadSignTxPlaceholder from "../src/utils/getPayloadSignTxPlaceholder";
+
+const JsonEditor = dynamic(import("../src/components/JsonEditor"), {
+  ssr: false,
+});
 
 const AppLoaderPageContainer = styled.div`
   display: flex;
@@ -23,17 +29,16 @@ const Row = styled.div`
 `;
 
 const Field = styled.label`
+  background-color: gainsboro;
   flex-grow: 1;
   padding: 2px;
   display: flex;
   flex-direction: column;
 `;
 
-const TextArea = styled.textarea`
-  resize: vertical;
-  min-height: 128px;
-  fonst-size: 14px;
-  font-family: monospace;
+const SwitchField = styled(Field)`
+  flex-direction: row;
+  align-items: center;
 `;
 
 const ToolBar = styled.div`
@@ -225,8 +230,8 @@ const DebugApp = () => {
   );
 
   const handlePayloadChange = useCallback(
-    (event) => {
-      setRawPayload(event.target.value);
+    (value) => {
+      setRawPayload(value);
     },
     [setRawPayload]
   );
@@ -272,23 +277,25 @@ const DebugApp = () => {
           </Field>
         </Row>
         <Row>
-          Use full transaction:
-          <Switch
-            disabled={method.value !== "transaction.sign"}
-            on={true}
-            off={false}
-            value={useFullTx}
-            onChange={setUseFullTx}
-          />
+          <SwitchField>
+            Use full transaction: &nbsp;
+            <Switch
+              disabled={method.value !== "transaction.sign"}
+              on={true}
+              off={false}
+              value={useFullTx}
+              onChange={setUseFullTx}
+            />
+          </SwitchField>
         </Row>
         <Field>
           Payload:
-          <TextArea
+          <JsonEditor
             onChange={handlePayloadChange}
             onBlur={handlePayloadBlur}
             value={rawPayload}
-            disabled={!method.usePayload}
-          ></TextArea>
+            readOnly={!method.usePayload}
+          />
         </Field>
         <button onClick={execute}>EXECUTE</button>
       </ToolBar>
