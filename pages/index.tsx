@@ -196,7 +196,7 @@ const DebugApp = () => {
   }, [method, account, rawPayload]);
 
   useEffect(() => {
-    if (method.value !== "transaction.sign") {
+    if (method.value !== "transaction.sign" || !account) {
       return;
     }
 
@@ -274,6 +274,7 @@ const DebugApp = () => {
         <Row>
           Use full transaction:
           <Switch
+            disabled={method.value !== "transaction.sign"}
             on={true}
             off={false}
             value={useFullTx}
