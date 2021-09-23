@@ -186,7 +186,7 @@ const DebugApp = () => {
           setAccount(result[0]);
         }
       }
-    } catch (err: unknown) {
+    } catch (err: any) {
       setLastAnswer({ message: err.message });
       console.log(err);
       setAnswerType("error");
