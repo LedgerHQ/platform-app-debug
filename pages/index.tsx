@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import styled, { css, DefaultTheme } from "styled-components";
 import Select from "react-select";
-import Switch from "react-input-switch";
+import Switch from "react-switch";
 import dynamic from "next/dynamic";
 
 import LedgerLiveApi, {
@@ -281,9 +281,7 @@ const DebugApp = () => {
             Use full transaction: &nbsp;
             <Switch
               disabled={method.value !== "transaction.sign"}
-              on={true}
-              off={false}
-              value={useFullTx}
+              checked={useFullTx}
               onChange={setUseFullTx}
             />
           </SwitchField>
