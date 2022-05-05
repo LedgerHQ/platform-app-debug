@@ -1,0 +1,31 @@
+{
+    "id": "debug",
+    "name": "Debugger",
+    "url": "http://localhost:3000/v2",
+    "homepageUrl": "https://developers.ledger.com/",
+    "icon": "https://cdn.live.ledger.com/icons/platform/debugger.png",
+    "platform": "all",
+    "apiVersion": "0.0.1",
+    "manifestVersion": "1",
+    "branch": "debug",
+    "categories": [
+      "tools"
+    ],
+    "currencies": "*",
+    "content": {
+      "shortDescription": {
+        "en": "Try out the Ledger Live API to test capabilities of our platform integration solution. Use at your own risk."
+      },
+      "description": {
+        "en": "Try out the Ledger Live API to test capabilities of our platform integration solution. Use at your own risk."
+      }
+    },
+    "permissions": [
+      {
+        "method": "*"
+      }
+    ],
+    "domains": [
+      "https://*"
+    ]
+  }

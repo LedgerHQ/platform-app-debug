@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@ledgerhq/live-app-sdk": "^0.6.0",
+    "@ledgerhq/react-ui": "^0.7.5",
     "ace-builds": "^1.4.12",
     "modern-normalize": "^1.1.0",
     "next": "11.1.2",
@@ -22,12 +23,15 @@
     "react-dom": "17.0.2",
     "react-select": "^4.3.1",
     "react-switch": "^6.0.0",
-    "styled-components": "^5.3.1"
+    "react-transition-group": "^4.4.2",
+    "styled-components": "^5.3.1",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/react": "17.0.21",
     "@types/react-select": "^4.0.17",
     "@types/styled-components": "^5.1.14",
+    "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^4.31.1",
     "babel-plugin-styled-components": "^1.13.2",
     "eslint": "^7.32.0",

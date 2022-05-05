@@ -24,7 +24,8 @@ const JsonEditor = ({ onChange, onBlur, value, readOnly = false }: Props) => {
       value={value}
       style={{
         resize: "vertical",
-        minHeight: "128px",
+        minHeight: "64px",
+        maxHeight: "128px",
       }}
       readOnly={readOnly}
     />

@@ -5,8 +5,9 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
   html,
   body {
-    background-color: ${(p) => p.theme.colors.background};
-    color: ${(p) => p.theme.colors.text};
+    overflow: hidden;
+    background-color: ${(p) => p.theme.colors.background.main};
+    color: ${(p) => p.theme.colors.neutral.c100};
     padding: 0;
     margin: 0;
     font-family: Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -27,22 +28,13 @@ export const GlobalStyle = createGlobalStyle`
   div#__next {
     height: 100%;
   }
-  
-  .Modal {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    right: 40px;
-    bottom: 40px;
-    background-color: papayawhip;
+
+  .output-item-enter {
+    opacity: 0;
+    transform: translateX(20px);
   }
-  
-  .ReactModal__Overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rebeccapurple;
+  .output-item-enter-active {
+    opacity: 1;
+    transform: translateX(0px);
   }
 `;
