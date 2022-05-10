@@ -1,0 +1,12 @@
+{
+    "provider": "",
+    "fromAccountId": "",
+    "toAccountId": "",
+    "transaction": {
+
+    },
+    "binaryPayload": "",
+    "signature": "",
+    "feesStrategy": "",
+    "exchangeType": 0
+}

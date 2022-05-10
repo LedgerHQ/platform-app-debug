@@ -1,8 +1,18 @@
 import { MethodHandler } from "./types";
-import LedgerLiveApi from "@ledgerhq/live-app-sdk";
+import LedgerLiveApi, {
+  deserializeTransaction,
+  ExchangeType,
+} from "@ledgerhq/live-app-sdk";
 import { AccountSelector } from "./inputs/AccountSelector";
+import { ValueSelector } from "./inputs/ValueSelector";
 import dynamic from "next/dynamic";
 import { InputComponent } from "./inputs/types";
+
+import defaultListCurrencyParameters from "./defaults/listCurrency/parameters.json";
+import defaultRequestAccountParameters from "./defaults/requestAccount/parameters.json";
+import defaultSignTransactionTransaction from "./defaults/signTransaction/transaction.json";
+import defaultSignTransactionParameters from "./defaults/signTransaction/parameters.json";
+import defaultCompleteExchangeParameters from "./defaults/completeExchange/parameters.json";
 
 const JSONTextArea = dynamic(
   import("./inputs/JSONTextArea").then((mod) => mod.JSONTextArea),
@@ -22,6 +32,8 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
         {
           name: "parameters",
           component: JSONTextArea,
+          modifier: (value: any) => JSON.parse(value),
+          defaultValue: JSON.stringify(defaultListCurrencyParameters, null, 3),
         },
       ],
     },
@@ -41,6 +53,12 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
         {
           name: "parameters",
           component: JSONTextArea,
+          modifier: (value: any) => JSON.parse(value),
+          defaultValue: JSON.stringify(
+            defaultRequestAccountParameters,
+            null,
+            3
+          ),
         },
       ],
     },
@@ -71,10 +89,70 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
         {
           name: "transaction",
           component: JSONTextArea,
+          modifier: (tx: any) => deserializeTransaction(JSON.parse(tx)),
+          defaultValue: JSON.stringify(
+            defaultSignTransactionTransaction,
+            null,
+            3
+          ),
         },
         {
           name: "parameters",
           component: JSONTextArea,
+          modifier: (value: any) => JSON.parse(value),
+          defaultValue: JSON.stringify(
+            defaultSignTransactionParameters,
+            null,
+            3
+          ),
+        },
+      ],
+    },
+    {
+      id: "startExchange",
+      name: "Start an Exchange Process",
+      description:
+        "Start a secure end to end process with a trusted third party",
+      handler: (exchangeType) => platformSDK.startExchange({ exchangeType }),
+      inputs: [
+        {
+          name: "Exchange Type",
+          props: {
+            options: [
+              {
+                value: ExchangeType.SWAP,
+                label: "Swap",
+              },
+              {
+                value: ExchangeType.FUND,
+                label: "Fund",
+              },
+              {
+                value: ExchangeType.SELL,
+                label: "Sell",
+              },
+            ],
+          },
+          component: ValueSelector,
+        },
+      ],
+    },
+    {
+      id: "completeExchange",
+      name: "Complete an Exchange Process",
+      description:
+        "Complete a secure end to end process with a trusted third party",
+      handler: platformSDK.completeExchange.bind(platformSDK),
+      inputs: [
+        {
+          name: "parameters",
+          component: JSONTextArea,
+          modifier: (value: any) => JSON.parse(value),
+          defaultValue: JSON.stringify(
+            defaultCompleteExchangeParameters,
+            null,
+            3
+          ),
         },
       ],
     },

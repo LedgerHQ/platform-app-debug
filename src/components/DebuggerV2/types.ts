@@ -4,8 +4,10 @@ import { InputComponent } from "./inputs/types";
 export type Parameter = {
   name: string;
   description?: string;
-  default?: string;
+  defaultValue?: string;
   component: InputComponent;
+  props?: Record<string, unknown>;
+  modifier?: (value: any) => any;
 };
 
 export type MethodHandler = {

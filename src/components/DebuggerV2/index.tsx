@@ -75,7 +75,13 @@ function OptionComponent(props: any) {
     <Option {...props}>
       <OptionContainer>
         <Text variant="subtitle">{props.data.label}</Text>
-        <Text variant="small" marginTop="6px" color="palette.neutral.c70">
+        <Text
+          variant="small"
+          marginTop="6px"
+          color="palette.neutral.c70"
+          width="100%"
+          overflow="ellipsis"
+        >
           {props.data.description}
         </Text>
       </OptionContainer>
@@ -210,7 +216,7 @@ export function DebuggerV2(): React.ReactElement {
 
   useEffect(() => {
     if (handler) {
-      const values = handler.inputs.map((input) => input.default);
+      const values = handler.inputs.map((input) => input.defaultValue);
       setValues(values);
     }
   }, [handler]);
@@ -271,9 +277,11 @@ export function DebuggerV2(): React.ReactElement {
                         {input.name}
                       </Text>
                       <input.component
+                        {...input.props}
                         instanceId={compId}
+                        defaultValue={input.defaultValue}
                         context={context}
-                        onChange={(value) => {
+                        onChange={(value: any) => {
                           setValues((oldValues) => {
                             const newValues = [...oldValues];
                             newValues[inputIndex] = value;
@@ -295,7 +303,12 @@ export function DebuggerV2(): React.ReactElement {
                   const queriedAt = new Date();
                   try {
                     setLoading(true);
-                    const data = await handler.handler(...values);
+                    const modifiedValues = values.map((value, index) => {
+                      const modifier = handler.inputs[index].modifier;
+
+                      return modifier ? modifier(value) : value;
+                    });
+                    const data = await handler.handler(...modifiedValues);
                     setLoading(false);
 
                     const newResult: Result = {

@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { InputProps } from "./types";
 import AceEditor from "react-ace";
 
@@ -29,27 +28,22 @@ const EditorContainer = styled.div`
   }
 `;
 
-export function JSONTextArea({ onChange }: InputProps): React.ReactElement {
-  const handleChange = useCallback((value) => {
-    try {
-      const parsed = JSON.parse(value);
-      onChange(parsed);
-    } catch (error) {
-      ("nope");
-    }
-  }, []);
-
+export function JSONTextArea({
+  onChange,
+  defaultValue,
+}: InputProps): React.ReactElement {
   const theme = useTheme();
 
   return (
     <EditorContainer>
       <AceEditor
         tabSize={3}
+        defaultValue={defaultValue}
         keyboardHandler="vscode"
         showGutter={false}
         mode="json"
         theme={theme.theme === "dark" ? "tomorrow_night" : "textmate"}
-        onChange={handleChange}
+        onChange={onChange}
         name="json-editor"
         style={{
           resize: "vertical",
