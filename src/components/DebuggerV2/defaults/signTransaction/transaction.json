@@ -1,7 +1,7 @@
 {
-    "family": "ethereum",
-    "amount": "0",
-    "recipient": "address",
-    "gasPrice": "10000",
-    "gasLimit": "200000"
+  "family": "ethereum",
+  "amount": "100000000000000",
+  "recipient": "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+  "gasPrice": "10000",
+  "gasLimit": "200000"
 }
