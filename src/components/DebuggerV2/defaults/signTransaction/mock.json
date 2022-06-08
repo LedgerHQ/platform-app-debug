@@ -1,0 +1,11 @@
+{
+  "successResponse": {
+    "operation": {
+      "date": "2022-06-07T18:36:24.114Z",
+      "value": 10000000000000000,
+      "fee": 100000000
+    },
+    "signature": "MOCKED_SIGNATURE",
+    "expirationDate": null
+  }
+}
