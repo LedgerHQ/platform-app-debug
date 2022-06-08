@@ -1,18 +1,18 @@
-import { MethodHandler } from "./types";
 import LedgerLiveApi, {
   deserializeTransaction,
   ExchangeType,
 } from "@ledgerhq/live-app-sdk";
-import { AccountSelector } from "./inputs/AccountSelector";
-import { ValueSelector } from "./inputs/ValueSelector";
 import dynamic from "next/dynamic";
-import { InputComponent } from "./inputs/types";
-
+import defaultCompleteExchangeParameters from "./defaults/completeExchange/parameters.json";
 import defaultListCurrencyParameters from "./defaults/listCurrency/parameters.json";
 import defaultRequestAccountParameters from "./defaults/requestAccount/parameters.json";
-import defaultSignTransactionTransaction from "./defaults/signTransaction/transaction.json";
+import defaultSignTransactionMock from "./defaults/signTransaction/mock.json";
 import defaultSignTransactionParameters from "./defaults/signTransaction/parameters.json";
-import defaultCompleteExchangeParameters from "./defaults/completeExchange/parameters.json";
+import defaultSignTransactionTransaction from "./defaults/signTransaction/transaction.json";
+import { AccountSelector } from "./inputs/AccountSelector";
+import { InputComponent } from "./inputs/types";
+import { ValueSelector } from "./inputs/ValueSelector";
+import { MethodHandler } from "./types";
 
 const JSONTextArea = dynamic(
   import("./inputs/JSONTextArea").then((mod) => mod.JSONTextArea),
@@ -105,6 +105,12 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
             null,
             3
           ),
+        },
+        {
+          name: "mock",
+          component: JSONTextArea,
+          modifier: (value: any) => JSON.parse(value),
+          defaultValue: JSON.stringify(defaultSignTransactionMock, null, 3),
         },
       ],
     },
