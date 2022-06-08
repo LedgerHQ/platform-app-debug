@@ -1,0 +1,19 @@
+{
+  "operation": {
+    "id": "js:2:ethereum:0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96046:--OUT",
+    "hash": "",
+    "type": "OUT",
+    "senders": ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96046"],
+    "recipients": ["0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045"],
+    "accountId": "js:2:ethereum:0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96046:",
+    "blockHash": null,
+    "blockHeight": null,
+    "extra": {},
+    "date": "2022-06-08T19:28:36.911Z",
+    "value": "100000000000000",
+    "fee": "2000000000",
+    "transactionSequenceNumber": 25
+  },
+  "signature": "MOCKED_SIGNATURE",
+  "expirationDate": null
+}

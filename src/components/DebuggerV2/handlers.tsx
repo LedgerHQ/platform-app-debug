@@ -3,6 +3,8 @@ import LedgerLiveApi, {
   ExchangeType,
 } from "@ledgerhq/live-app-sdk";
 import dynamic from "next/dynamic";
+import defaultBroadcastSignedTransactionMock from "./defaults/broadcastSignedTransaction/mock.json";
+import defaultBroadcastSignedTransactionSignedTransaction from "./defaults/broadcastSignedTransaction/signedTransaction.json";
 import defaultCompleteExchangeParameters from "./defaults/completeExchange/parameters.json";
 import defaultListCurrencyParameters from "./defaults/listCurrency/parameters.json";
 import defaultRequestAccountParameters from "./defaults/requestAccount/parameters.json";
@@ -111,6 +113,39 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
           component: JSONTextArea,
           modifier: (value: any) => JSON.parse(value),
           defaultValue: JSON.stringify(defaultSignTransactionMock, null, 3),
+        },
+      ],
+    },
+    {
+      id: "broadcastSignedTransaction",
+      name: "Broadcast a signed transaction",
+      description:
+        "Broadcast a transaction signed with the `signTransaction` method",
+      handler: platformSDK.broadcastSignedTransaction.bind(platformSDK),
+      inputs: [
+        {
+          name: "account",
+          component: AccountSelector,
+        },
+        {
+          name: "signed transaction",
+          component: JSONTextArea,
+          modifier: (tx: any) => JSON.parse(tx),
+          defaultValue: JSON.stringify(
+            defaultBroadcastSignedTransactionSignedTransaction,
+            null,
+            3
+          ),
+        },
+        {
+          name: "mock",
+          component: JSONTextArea,
+          modifier: (value: any) => JSON.parse(value),
+          defaultValue: JSON.stringify(
+            defaultBroadcastSignedTransactionMock,
+            null,
+            3
+          ),
         },
       ],
     },
