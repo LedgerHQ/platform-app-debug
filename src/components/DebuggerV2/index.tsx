@@ -1,30 +1,29 @@
+import {
+  default as LedgerLiveApi,
+  default as LedgerLivePlatformSDK,
+  WindowMessageTransport,
+} from "@ledgerhq/live-app-sdk";
+import {
+  Button,
+  Chip,
+  InfiniteLoader,
+  SelectInput,
+  Text,
+} from "@ledgerhq/react-ui";
+import { Option } from "@ledgerhq/react-ui/components/form/SelectInput/Option";
 import React, {
-  useRef,
+  useCallback,
   useEffect,
   useMemo,
-  useCallback,
+  useRef,
   useState,
 } from "react";
-import { v4 as uuidv4 } from "uuid";
-
-import {
-  Text,
-  SelectInput,
-  Button,
-  InfiniteLoader,
-  Chip,
-} from "@ledgerhq/react-ui";
-
-import styled from "styled-components";
-
-import LedgerLiveApi, { WindowMessageTransport } from "@ledgerhq/live-app-sdk";
-
-import { getHandlers } from "./handlers";
-import { DebuggerContext, MethodHandler, Result, ResultStatus } from "./types";
-import { Option } from "@ledgerhq/react-ui/components/form/SelectInput/Option";
 import { components } from "react-select";
-import LedgerLivePlatformSDK from "@ledgerhq/live-app-sdk";
+import styled from "styled-components";
+import { v4 as uuidv4 } from "uuid";
+import { getHandlers } from "./handlers";
 import { OutputConsole } from "./OutputConsole";
+import { DebuggerContext, MethodHandler, Result, ResultStatus } from "./types";
 
 type IOption = {
   value: string;
@@ -180,7 +179,7 @@ const initialState = { accounts: [], currencies: [] };
 
 export function DebuggerV2(): React.ReactElement {
   const platformSDK = useRef<LedgerLiveApi>(
-    new LedgerLiveApi(new WindowMessageTransport())
+    new LedgerLiveApi(new WindowMessageTransport(), undefined, true)
   );
 
   const handlers = useMemo(() => {
