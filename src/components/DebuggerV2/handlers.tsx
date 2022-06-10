@@ -156,5 +156,24 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
         },
       ],
     },
+    {
+      id: "signMessage",
+      name: "Sign a message",
+      description:
+        "Display a Native UI and have the user signing a message using his Hardware Wallet",
+      handler: platformSDK.signMessage.bind(platformSDK),
+      inputs: [
+        {
+          name: "account",
+          component: AccountSelector,
+        },
+        {
+          name: "message",
+          component: JSONTextArea,
+          modifier: (value: any) => value,
+          defaultValue: "Message de test",
+        },
+      ],
+    },
   ];
 }
