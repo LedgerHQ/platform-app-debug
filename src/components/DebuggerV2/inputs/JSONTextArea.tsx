@@ -28,10 +28,13 @@ const EditorContainer = styled.div`
   }
 `;
 
+type JSONTextAreaProps = InputProps & { mode: string };
+
 export function JSONTextArea({
   onChange,
   defaultValue,
-}: InputProps): React.ReactElement {
+  mode = "json",
+}: JSONTextAreaProps): React.ReactElement {
   const theme = useTheme();
 
   return (
@@ -41,7 +44,7 @@ export function JSONTextArea({
         defaultValue={defaultValue}
         keyboardHandler="vscode"
         showGutter={false}
-        mode="json"
+        mode={mode}
         theme={theme.theme === "dark" ? "tomorrow_night" : "textmate"}
         onChange={onChange}
         name="json-editor"

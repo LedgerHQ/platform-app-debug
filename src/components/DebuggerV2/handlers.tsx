@@ -162,6 +162,7 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
       description:
         "Display a Native UI and have the user signing a message using his Hardware Wallet",
       handler: platformSDK.signMessage.bind(platformSDK),
+      // TODO: Pass mode to AceEditor, inside JSONTextArea (ie json or text)
       inputs: [
         {
           name: "account",
@@ -172,6 +173,7 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
           component: JSONTextArea,
           modifier: (value: any) => value,
           defaultValue: "Message de test",
+          mode: "text",
         },
       ],
     },

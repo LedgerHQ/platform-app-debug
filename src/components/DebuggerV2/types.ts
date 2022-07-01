@@ -8,6 +8,7 @@ export type Parameter = {
   component: InputComponent;
   props?: Record<string, unknown>;
   modifier?: (value: any) => any;
+  mode?: string;
 };
 
 export type MethodHandler = {
