@@ -172,7 +172,7 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
           name: "message",
           component: JSONTextArea,
           modifier: (value: any) => value,
-          defaultValue: "Message de test",
+          defaultValue: "Test message",
           mode: "text",
         },
       ],
