@@ -8,6 +8,7 @@ import defaultBroadcastSignedTransactionSignedTransaction from "./defaults/broad
 import defaultCompleteExchangeParameters from "./defaults/completeExchange/parameters.json";
 import defaultListCurrencyParameters from "./defaults/listCurrency/parameters.json";
 import defaultRequestAccountParameters from "./defaults/requestAccount/parameters.json";
+import defaultSignMessageMock from "./defaults/signMessage/mock.json";
 import defaultSignTransactionMock from "./defaults/signTransaction/mock.json";
 import defaultSignTransactionParameters from "./defaults/signTransaction/parameters.json";
 import defaultSignTransactionTransaction from "./defaults/signTransaction/transaction.json";
@@ -213,6 +214,12 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
           component: JSONTextArea,
           modifier: (value: any) => value,
           defaultValue: "Message de test",
+        },
+        {
+          name: "mock",
+          component: JSONTextArea,
+          modifier: (value: any) => JSON.parse(value),
+          defaultValue: JSON.stringify(defaultSignMessageMock, null, 3),
         },
       ],
     },
