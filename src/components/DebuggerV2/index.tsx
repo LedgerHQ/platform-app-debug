@@ -177,13 +177,13 @@ const InputContainer = styled.div`
 
 const initialState = { accounts: [], currencies: [] };
 
-export function DebuggerV2(): React.ReactElement {
+export const DebuggerV2 = ({ isMock = false }): React.ReactElement => {
   const platformSDK = useRef<LedgerLiveApi>(
-    new LedgerLiveApi(new WindowMessageTransport(), undefined, true)
+    new LedgerLiveApi(new WindowMessageTransport(), undefined, isMock)
   );
 
   const handlers = useMemo(() => {
-    return getHandlers(platformSDK.current);
+    return getHandlers(platformSDK.current, isMock);
   }, []);
 
   const [context, setContext] = useState<DebuggerContext>(initialState);
@@ -370,4 +370,4 @@ export function DebuggerV2(): React.ReactElement {
       </DebuggerContainer>
     </>
   );
-}
+};

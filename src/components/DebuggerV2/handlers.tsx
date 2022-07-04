@@ -24,7 +24,59 @@ const JSONTextArea = dynamic(
   }
 ) as InputComponent;
 
-export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
+const signTransactionBaseInputs = [
+  {
+    name: "account",
+    component: AccountSelector,
+  },
+  {
+    name: "transaction",
+    component: JSONTextArea,
+    modifier: (tx: any) => deserializeTransaction(JSON.parse(tx)),
+    defaultValue: JSON.stringify(defaultSignTransactionTransaction, null, 3),
+  },
+  {
+    name: "parameters",
+    component: JSONTextArea,
+    modifier: (value: any) => JSON.parse(value),
+    defaultValue: JSON.stringify(defaultSignTransactionParameters, null, 3),
+  },
+];
+
+const broadcastSignedTransactionBaseInputs = [
+  {
+    name: "account",
+    component: AccountSelector,
+  },
+  {
+    name: "signed transaction",
+    component: JSONTextArea,
+    modifier: (tx: any) => JSON.parse(tx),
+    defaultValue: JSON.stringify(
+      defaultBroadcastSignedTransactionSignedTransaction,
+      null,
+      3
+    ),
+  },
+];
+
+const signMessageBaseInputs = [
+  {
+    name: "account",
+    component: AccountSelector,
+  },
+  {
+    name: "message",
+    component: JSONTextArea,
+    modifier: (value: any) => value,
+    defaultValue: "Message de test",
+  },
+];
+
+export function getHandlers(
+  platformSDK: LedgerLiveApi,
+  isMock: boolean
+): MethodHandler[] {
   return [
     {
       id: "listCurrencies",
@@ -84,38 +136,17 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
       description:
         "Display a Native UI and have the user signing a transaction using his Hardware Wallet",
       handler: platformSDK.signTransaction.bind(platformSDK),
-      inputs: [
-        {
-          name: "account",
-          component: AccountSelector,
-        },
-        {
-          name: "transaction",
-          component: JSONTextArea,
-          modifier: (tx: any) => deserializeTransaction(JSON.parse(tx)),
-          defaultValue: JSON.stringify(
-            defaultSignTransactionTransaction,
-            null,
-            3
-          ),
-        },
-        {
-          name: "parameters",
-          component: JSONTextArea,
-          modifier: (value: any) => JSON.parse(value),
-          defaultValue: JSON.stringify(
-            defaultSignTransactionParameters,
-            null,
-            3
-          ),
-        },
-        {
-          name: "mock",
-          component: JSONTextArea,
-          modifier: (value: any) => JSON.parse(value),
-          defaultValue: JSON.stringify(defaultSignTransactionMock, null, 3),
-        },
-      ],
+      inputs: !isMock
+        ? signTransactionBaseInputs
+        : [
+            ...signTransactionBaseInputs,
+            {
+              name: "mock",
+              component: JSONTextArea,
+              modifier: (value: any) => JSON.parse(value),
+              defaultValue: JSON.stringify(defaultSignTransactionMock, null, 3),
+            },
+          ],
     },
     {
       id: "broadcastSignedTransaction",
@@ -123,32 +154,21 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
       description:
         "Broadcast a transaction signed with the `signTransaction` method",
       handler: platformSDK.broadcastSignedTransaction.bind(platformSDK),
-      inputs: [
-        {
-          name: "account",
-          component: AccountSelector,
-        },
-        {
-          name: "signed transaction",
-          component: JSONTextArea,
-          modifier: (tx: any) => JSON.parse(tx),
-          defaultValue: JSON.stringify(
-            defaultBroadcastSignedTransactionSignedTransaction,
-            null,
-            3
-          ),
-        },
-        {
-          name: "mock",
-          component: JSONTextArea,
-          modifier: (value: any) => JSON.parse(value),
-          defaultValue: JSON.stringify(
-            defaultBroadcastSignedTransactionMock,
-            null,
-            3
-          ),
-        },
-      ],
+      inputs: !isMock
+        ? broadcastSignedTransactionBaseInputs
+        : [
+            ...broadcastSignedTransactionBaseInputs,
+            {
+              name: "mock",
+              component: JSONTextArea,
+              modifier: (value: any) => JSON.parse(value),
+              defaultValue: JSON.stringify(
+                defaultBroadcastSignedTransactionMock,
+                null,
+                3
+              ),
+            },
+          ],
     },
     {
       id: "startExchange",
@@ -204,24 +224,17 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
       description:
         "Display a Native UI and have the user signing a message using his Hardware Wallet",
       handler: platformSDK.signMessage.bind(platformSDK),
-      inputs: [
-        {
-          name: "account",
-          component: AccountSelector,
-        },
-        {
-          name: "message",
-          component: JSONTextArea,
-          modifier: (value: any) => value,
-          defaultValue: "Message de test",
-        },
-        {
-          name: "mock",
-          component: JSONTextArea,
-          modifier: (value: any) => JSON.parse(value),
-          defaultValue: JSON.stringify(defaultSignMessageMock, null, 3),
-        },
-      ],
+      inputs: !isMock
+        ? signMessageBaseInputs
+        : [
+            ...signMessageBaseInputs,
+            {
+              name: "mock",
+              component: JSONTextArea,
+              modifier: (value: any) => JSON.parse(value),
+              defaultValue: JSON.stringify(defaultSignMessageMock, null, 3),
+            },
+          ],
     },
   ];
 }
