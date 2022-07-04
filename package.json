@@ -13,7 +13,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@ledgerhq/live-app-sdk": "^0.6.0",
+    "@ledgerhq/live-app-sdk": "LedgerHQ/live-app-sdk#adec06ea9ca1e84474e41f766834c02a2edea90f",
     "@ledgerhq/react-ui": "^0.7.5",
     "ace-builds": "^1.4.12",
     "modern-normalize": "^1.1.0",

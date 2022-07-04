@@ -220,13 +220,6 @@ export function DebuggerV2(): React.ReactElement {
     }
   }, [handler]);
 
-  console.log({
-    handler,
-    context,
-    values,
-    results,
-  });
-
   const [loading, setLoading] = useState<boolean>(false);
   const [tabIndex, setTabIndex] = useState(0);
 
