@@ -335,13 +335,12 @@
     "@types/styled-components" "^5.1.14"
     styled-components "^5.2.3"
 
-"@ledgerhq/live-app-sdk@^0.6.0":
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/@ledgerhq/live-app-sdk/-/live-app-sdk-0.6.0.tgz#65595132d73bd3834feafdaa34ad6aa87fb133b1"
-  integrity sha512-I4EfXn77Yz8jehgXPj61pgcfjW018eaCBOOBmfdDtYRTNQ5N3vybnEFjVJy16RMjphfKvZqs68r6ooY6o35/qQ==
+"@ledgerhq/live-app-sdk@LedgerHQ/live-app-sdk#3d2e8cd4b1fbe3db6509090e38bf984bc02b3bb7":
+  version "0.7.0"
+  resolved "https://codeload.github.com/LedgerHQ/live-app-sdk/tar.gz/3d2e8cd4b1fbe3db6509090e38bf984bc02b3bb7"
   dependencies:
-    bignumber.js "^9.0.1"
-    json-rpc-2.0 "^0.2.16"
+    bignumber.js "^9.0.2"
+    json-rpc-2.0 "^1.1.0"
 
 "@ledgerhq/react-ui@^0.7.5":
   version "0.7.5"
@@ -1009,7 +1008,7 @@ big.js@^5.2.2:
   resolved "https://registry.yarnpkg.com/big.js/-/big.js-5.2.2.tgz#65f0af382f578bcdc742bd9c281e9cb2d7768328"
   integrity sha512-vyL2OymJxmarO8gxMr0mhChsO9QGwhynfuu4+MHTAW6czfq9humCB7rKpUjDd9YUiDPU4mzpyupFSvOClAwbmQ==
 
-bignumber.js@^9.0.1:
+bignumber.js@^9.0.2:
   version "9.0.2"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.0.2.tgz#71c6c6bed38de64e24a65ebe16cfcf23ae693673"
   integrity sha512-GAcQvbpsM0pUb0zw1EI0KhQEZ+lRwR5fYaAp3vPOYuP7aDvGy6cVN6XHLauvF8SOga2y0dcLcjt3iQDTSEliyw==
@@ -2536,10 +2535,10 @@ json-parse-even-better-errors@^2.3.0:
   resolved "https://registry.yarnpkg.com/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz#7c47805a94319928e05777405dc12e1f7a4ee02d"
   integrity sha512-xyFwyhro/JEof6Ghe2iz2NcXoj2sloNsWr/XsERDK/oiPCfaNhl5ONfp+jQdAZRQQ0IJWNzH9zIZF7li91kh2w==
 
-json-rpc-2.0@^0.2.16:
-  version "0.2.19"
-  resolved "https://registry.yarnpkg.com/json-rpc-2.0/-/json-rpc-2.0-0.2.19.tgz#082957f0d22d22f03473dbf5ffeeb20dcdeb1faa"
-  integrity sha512-tegZKneDQjWintJS5Zlw8xNvJK0/xq4sct2M5AgfFmcCJFMjvrLgk1noH7OPfFgEQ+ScueuWdaGfikCPr+qBtg==
+json-rpc-2.0@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/json-rpc-2.0/-/json-rpc-2.0-1.1.1.tgz#2eb9e3dd66e16430d5c51e3a13ca776d8bf73d02"
+  integrity sha512-q8l8elODG3Jjouo9d6aQiCS6sWeAhuJczjbcbvDmuYwfsJDR3C+2uTXw7zNgCgUKKXdJZYjLew1LThArAfFvRw==
 
 json-schema-traverse@^0.4.1:
   version "0.4.1"
