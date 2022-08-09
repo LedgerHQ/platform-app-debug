@@ -11,11 +11,10 @@
     "lint:check": "eslint --cache src/** pages/**",
     "lint:fix": "eslint --cache --fix src/** pages/**",
     "prepare": "husky install",
-    "clear:next": "rm -rf .next",
-    "postinstall": "cd node_modules/@ledgerhq/live-app-sdk && NODE_ENV=production yarn build && cp ./src/mock/mocks.json ./dist/mock"
+    "clear:next": "rm -rf .next"
   },
   "dependencies": {
-    "@ledgerhq/live-app-sdk": "LedgerHQ/live-app-sdk#f1199155975cca499760d7393c41c8dd5b8777b2",
+    "@ledgerhq/live-app-sdk": "0.8.1",
     "@ledgerhq/react-ui": "^0.7.5",
     "ace-builds": "^1.4.12",
     "modern-normalize": "^1.1.0",
