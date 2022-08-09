@@ -10,10 +10,11 @@
     "format:fix": "prettier --write 'src/**' 'pages/**'",
     "lint:check": "eslint --cache src/** pages/**",
     "lint:fix": "eslint --cache --fix src/** pages/**",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "clear:next": "rm -rf .next"
   },
   "dependencies": {
-    "@ledgerhq/live-app-sdk": "^0.6.0",
+    "@ledgerhq/live-app-sdk": "0.8.1",
     "@ledgerhq/react-ui": "^0.7.5",
     "ace-builds": "^1.4.12",
     "modern-normalize": "^1.1.0",
