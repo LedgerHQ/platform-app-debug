@@ -185,13 +185,11 @@ const initialState = { accounts: [], currencies: [] };
 export function DebuggerV2(): React.ReactElement {
   const router = useRouter();
 
-  const { simulator } = router.query;
-
-  console.log(simulator);
+  const { mode } = router.query;
 
   const platformSDK = useRef<WalletAPIClient>(
     new WalletAPIClient(
-      simulator !== undefined
+      mode === "simulator"
         ? getSimulatorTransport("strandard")
         : new WindowMessageTransport()
     )
