@@ -1,18 +1,19 @@
 import { MethodHandler } from "./types";
-import LedgerLiveApi, {
-  deserializeTransaction,
-  ExchangeType,
-} from "@ledgerhq/live-app-sdk";
 import { AccountSelector } from "./inputs/AccountSelector";
 import { ValueSelector } from "./inputs/ValueSelector";
 import dynamic from "next/dynamic";
 import { InputComponent } from "./inputs/types";
 
 import defaultListCurrencyParameters from "./defaults/listCurrency/parameters.json";
+import defaultListAccountsParameters from "./defaults/listAccounts/parameters.json";
 import defaultRequestAccountParameters from "./defaults/requestAccount/parameters.json";
 import defaultSignTransactionTransaction from "./defaults/signTransaction/transaction.json";
 import defaultSignTransactionParameters from "./defaults/signTransaction/parameters.json";
 import defaultCompleteExchangeParameters from "./defaults/completeExchange/parameters.json";
+import {
+  deserializeTransaction,
+  WalletAPIClient,
+} from "@ledgerhq/wallet-api-client";
 
 const JSONTextArea = dynamic(
   import("./inputs/JSONTextArea").then((mod) => mod.JSONTextArea),
@@ -21,13 +22,13 @@ const JSONTextArea = dynamic(
   }
 ) as InputComponent;
 
-export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
+export function getHandlers(walletAPIClient: WalletAPIClient): MethodHandler[] {
   return [
     {
       id: "listCurrencies",
       name: "List currencies",
       description: "List all supported currencies",
-      handler: platformSDK.listCurrencies.bind(platformSDK),
+      handler: walletAPIClient.listCurrencies.bind(walletAPIClient),
       inputs: [
         {
           name: "parameters",
@@ -41,14 +42,21 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
       id: "listAccounts",
       name: "List accounts",
       description: "List all user accounts",
-      handler: platformSDK.listAccounts.bind(platformSDK),
-      inputs: [],
+      handler: walletAPIClient.listAccounts.bind(walletAPIClient),
+      inputs: [
+        {
+          name: "parameters",
+          component: JSONTextArea,
+          modifier: (value: any) => JSON.parse(value),
+          defaultValue: JSON.stringify(defaultListAccountsParameters, null, 3),
+        },
+      ],
     },
     {
       id: "requestAccount",
       name: "Request an Account",
       description: "Display a Native UI and have the user select an account",
-      handler: platformSDK.requestAccount.bind(platformSDK),
+      handler: walletAPIClient.requestAccount.bind(walletAPIClient),
       inputs: [
         {
           name: "parameters",
@@ -63,24 +71,11 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
       ],
     },
     {
-      id: "verifyAddress",
-      name: "Verify an address",
-      description:
-        "Display a Native UI and have the user verifying an address using his Hardware Wallet",
-      handler: platformSDK.receive.bind(platformSDK),
-      inputs: [
-        {
-          name: "account",
-          component: AccountSelector,
-        },
-      ],
-    },
-    {
       id: "signTransaction",
       name: "Sign a transaction",
       description:
         "Display a Native UI and have the user signing a transaction using his Hardware Wallet",
-      handler: platformSDK.signTransaction.bind(platformSDK),
+      handler: walletAPIClient.signTransaction.bind(walletAPIClient),
       inputs: [
         {
           name: "account",
@@ -109,59 +104,11 @@ export function getHandlers(platformSDK: LedgerLiveApi): MethodHandler[] {
       ],
     },
     {
-      id: "startExchange",
-      name: "Start an Exchange Process",
-      description:
-        "Start a secure end to end process with a trusted third party",
-      handler: (exchangeType) => platformSDK.startExchange({ exchangeType }),
-      inputs: [
-        {
-          name: "Exchange Type",
-          props: {
-            options: [
-              {
-                value: ExchangeType.SWAP,
-                label: "Swap",
-              },
-              {
-                value: ExchangeType.FUND,
-                label: "Fund",
-              },
-              {
-                value: ExchangeType.SELL,
-                label: "Sell",
-              },
-            ],
-          },
-          component: ValueSelector,
-        },
-      ],
-    },
-    {
-      id: "completeExchange",
-      name: "Complete an Exchange Process",
-      description:
-        "Complete a secure end to end process with a trusted third party",
-      handler: platformSDK.completeExchange.bind(platformSDK),
-      inputs: [
-        {
-          name: "parameters",
-          component: JSONTextArea,
-          modifier: (value: any) => JSON.parse(value),
-          defaultValue: JSON.stringify(
-            defaultCompleteExchangeParameters,
-            null,
-            3
-          ),
-        },
-      ],
-    },
-    {
       id: "signMessage",
       name: "Sign a message",
       description:
         "Display a Native UI and have the user signing a message using his Hardware Wallet",
-      handler: platformSDK.signMessage.bind(platformSDK),
+      handler: walletAPIClient.signMessage.bind(walletAPIClient),
       // TODO: Pass mode to AceEditor, inside JSONTextArea (ie json or text)
       inputs: [
         {

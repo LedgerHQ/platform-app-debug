@@ -17,14 +17,18 @@ import {
 
 import styled from "styled-components";
 
-import LedgerLiveApi, { WindowMessageTransport } from "@ledgerhq/live-app-sdk";
+import { getSimulatorTransport } from "@ledgerhq/wallet-api-simulator";
+import {
+  WalletAPIClient,
+  WindowMessageTransport,
+} from "@ledgerhq/wallet-api-client";
 
 import { getHandlers } from "./handlers";
 import { DebuggerContext, MethodHandler, Result, ResultStatus } from "./types";
 import { Option } from "@ledgerhq/react-ui/components/form/SelectInput/Option";
 import { components } from "react-select";
-import LedgerLivePlatformSDK from "@ledgerhq/live-app-sdk";
 import { OutputConsole } from "./OutputConsole";
+import { useRouter } from "next/router";
 
 type IOption = {
   value: string;
@@ -89,10 +93,10 @@ function OptionComponent(props: any) {
   );
 }
 
-async function getState(sdk: LedgerLivePlatformSDK): Promise<DebuggerContext> {
+async function getState(sdk: WalletAPIClient): Promise<DebuggerContext> {
   const [accounts, currencies] = await Promise.all([
-    sdk.listAccounts(),
-    sdk.listCurrencies(),
+    sdk.listAccounts({ currencyIds: ["ethereum"] }),
+    sdk.listCurrencies({ currencyIds: ["ethereum"] }),
   ]);
 
   return {
@@ -179,8 +183,18 @@ const InputContainer = styled.div`
 const initialState = { accounts: [], currencies: [] };
 
 export function DebuggerV2(): React.ReactElement {
-  const platformSDK = useRef<LedgerLiveApi>(
-    new LedgerLiveApi(new WindowMessageTransport())
+  const router = useRouter();
+
+  const { simulator } = router.query;
+
+  console.log(simulator);
+
+  const platformSDK = useRef<WalletAPIClient>(
+    new WalletAPIClient(
+      simulator !== undefined
+        ? getSimulatorTransport("strandard")
+        : new WindowMessageTransport()
+    )
   );
 
   const handlers = useMemo(() => {
@@ -191,13 +205,8 @@ export function DebuggerV2(): React.ReactElement {
 
   useEffect(() => {
     const sdk = platformSDK.current;
-    sdk.connect();
 
     getState(sdk).then((newState) => setContext(newState));
-
-    return () => {
-      sdk.disconnect();
-    };
   }, []);
 
   const [method, setMethod] = useState<IOption>(handlerToOption(handlers[0]));
