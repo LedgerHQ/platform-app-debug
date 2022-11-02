@@ -1,6 +1,6 @@
 import { MethodHandler } from "./types";
 import { AccountSelector } from "./inputs/AccountSelector";
-import { ValueSelector } from "./inputs/ValueSelector";
+// import { ValueSelector } from "./inputs/ValueSelector";
 import dynamic from "next/dynamic";
 import { InputComponent } from "./inputs/types";
 
@@ -9,7 +9,7 @@ import defaultListAccountsParameters from "./defaults/listAccounts/parameters.js
 import defaultRequestAccountParameters from "./defaults/requestAccount/parameters.json";
 import defaultSignTransactionTransaction from "./defaults/signTransaction/transaction.json";
 import defaultSignTransactionParameters from "./defaults/signTransaction/parameters.json";
-import defaultCompleteExchangeParameters from "./defaults/completeExchange/parameters.json";
+// import defaultCompleteExchangeParameters from "./defaults/completeExchange/parameters.json";
 import {
   deserializeTransaction,
   WalletAPIClient,

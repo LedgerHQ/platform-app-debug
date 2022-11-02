@@ -6,6 +6,7 @@ specifiers:
   '@ledgerhq/wallet-api-simulator': ^0.5.0
   '@types/react': 17.0.21
   '@types/react-select': ^4.0.17
+  '@types/react-transition-group': ^4.4.5
   '@types/styled-components': ^5.1.14
   '@types/uuid': ^8.3.4
   '@typescript-eslint/eslint-plugin': ^4.31.1
@@ -51,6 +52,7 @@ dependencies:
 devDependencies:
   '@types/react': 17.0.21
   '@types/react-select': 4.0.18
+  '@types/react-transition-group': 4.4.5
   '@types/styled-components': 5.1.26
   '@types/uuid': 8.3.4
   '@typescript-eslint/eslint-plugin': 4.33.0_sek7ybhoe3wua6y4z6v7featku
@@ -813,7 +815,7 @@ packages:
   /@types/react-transition-group/4.4.5:
     resolution: {integrity: sha512-juKD/eiSM3/xZYzjuzH6ZwpP+/lejltmiS3QEzV/vmb/Q8+HfDmxu+Baga8UEMGBqV88Nbg4l2hY/K2DkyaLLA==}
     dependencies:
-      '@types/react': 17.0.21
+      '@types/react': 17.0.52
 
   /@types/react-window/1.8.5:
     resolution: {integrity: sha512-V9q3CvhC9Jk9bWBOysPGaWy/Z0lxYcTXLtLipkt2cnRj1JOSFNF7wqGpkScSXMgBwC+fnVRg/7shwgddBG5ICw==}
@@ -834,7 +836,6 @@ packages:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
       csstype: 3.1.1
-    dev: false
 
   /@types/scheduler/0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}

@@ -1,5 +1,5 @@
-import { Account } from "@ledgerhq/live-app-sdk";
 import { SelectInput } from "@ledgerhq/react-ui";
+import { Account } from "@ledgerhq/wallet-api-client";
 import { useCallback } from "react";
 import { OptionsType } from "react-select";
 import { InputProps } from "./types";

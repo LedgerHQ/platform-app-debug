@@ -1,4 +1,4 @@
-import { Account, Currency } from "@ledgerhq/live-app-sdk";
+import { Account, Currency } from "@ledgerhq/wallet-api-client";
 import { InputComponent } from "./inputs/types";
 
 export type Parameter = {
