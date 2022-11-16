@@ -182,17 +182,24 @@ const InputContainer = styled.div`
 
 const initialState = { accounts: [], currencies: [] };
 
+function getTransport(mode: string) {
+  if (mode === "simulator") {
+    return getSimulatorTransport("strandard");
+  }
+  const messageTransport = new WindowMessageTransport();
+
+  messageTransport.connect();
+
+  return messageTransport;
+}
+
 export function DebuggerV2(): React.ReactElement {
   const router = useRouter();
 
   const { mode } = router.query;
 
   const platformSDK = useRef<WalletAPIClient>(
-    new WalletAPIClient(
-      mode === "simulator"
-        ? getSimulatorTransport("strandard")
-        : new WindowMessageTransport()
-    )
+    new WalletAPIClient(getTransport(String(mode)))
   );
 
   const handlers = useMemo(() => {
