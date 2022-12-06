@@ -1,10 +1,4 @@
-import React, {
-  useRef,
-  useEffect,
-  useMemo,
-  useCallback,
-  useState,
-} from "react";
+import React, { useEffect, useMemo, useCallback, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 import {
@@ -17,7 +11,10 @@ import {
 
 import styled from "styled-components";
 
-import { getSimulatorTransport } from "@ledgerhq/wallet-api-simulator";
+import {
+  getSimulatorTransport,
+  profiles,
+} from "@ledgerhq/wallet-api-simulator";
 import {
   WalletAPIClient,
   WindowMessageTransport,
@@ -184,7 +181,7 @@ const initialState = { accounts: [], currencies: [] };
 
 function getTransport(mode: string) {
   if (mode === "simulator") {
-    return getSimulatorTransport("strandard");
+    return getSimulatorTransport(profiles.STANDARD);
   }
   const messageTransport = new WindowMessageTransport();
 
@@ -198,20 +195,18 @@ export function DebuggerV2(): React.ReactElement {
 
   const { mode } = router.query;
 
-  const platformSDK = useRef<WalletAPIClient>(
-    new WalletAPIClient(getTransport(String(mode)))
-  );
+  const [platformSDK] = useState<WalletAPIClient>(() => {
+    return new WalletAPIClient(getTransport(String(mode)));
+  });
 
   const handlers = useMemo(() => {
-    return getHandlers(platformSDK.current);
+    return getHandlers(platformSDK);
   }, []);
 
   const [context, setContext] = useState<DebuggerContext>(initialState);
 
   useEffect(() => {
-    const sdk = platformSDK.current;
-
-    getState(sdk).then((newState) => setContext(newState));
+    getState(platformSDK).then((newState) => setContext(newState));
   }, []);
 
   const [method, setMethod] = useState<IOption>(handlerToOption(handlers[0]));
@@ -224,7 +219,7 @@ export function DebuggerV2(): React.ReactElement {
     return handlers.find((handler) => handler.id === method.value);
   }, [method]);
 
-  const [values, setValues] = useState<any[]>([]);
+  const [values, setValues] = useState<unknown[]>([]);
 
   const [results, setResults] = useState<Result[]>([]);
 
