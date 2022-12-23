@@ -124,5 +124,17 @@ export function getHandlers(walletAPIClient: WalletAPIClient): MethodHandler[] {
         },
       ],
     },
+    {
+      id: "bitcoin.getXPub",
+      name: "Get xpub",
+      description: "Get a specific bitcoin familly account xpub",
+      handler: walletAPIClient.bitcoin.getXPub.bind(walletAPIClient.bitcoin),
+      inputs: [
+        {
+          name: "account",
+          component: AccountSelector,
+        },
+      ],
+    },
   ];
 }
