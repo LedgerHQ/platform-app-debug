@@ -15,8 +15,8 @@
   },
   "dependencies": {
     "@ledgerhq/react-ui": "^0.7.5",
-    "@ledgerhq/wallet-api-client": "^0.8.0",
-    "@ledgerhq/wallet-api-simulator": "^0.7.2",
+    "@ledgerhq/wallet-api-client": "^0.11.0",
+    "@ledgerhq/wallet-api-simulator": "^0.9.0",
     "ace-builds": "^1.4.12",
     "modern-normalize": "^1.1.0",
     "next": "11.1.2",

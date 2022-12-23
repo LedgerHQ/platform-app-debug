@@ -407,46 +407,47 @@
   resolved "https://registry.yarnpkg.com/@ledgerhq/ui-shared/-/ui-shared-0.1.6.tgz#32a938c7889705a6d4b02d8c8b093992c6aa88ec"
   integrity sha512-D7hV8CfOt52oDf51pD7y07h+7RTE5Onvdv7PZ1WF8Oe/ywzUL+TYAViOwM664X/VeT1cFXsqYebDVxmT8LeUWQ==
 
-"@ledgerhq/wallet-api-client@0.8.0", "@ledgerhq/wallet-api-client@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@ledgerhq/wallet-api-client/-/wallet-api-client-0.8.0.tgz#09def81716c015247c4abb49b6a8c210aee4a52a"
-  integrity sha512-j5V/ZZG5rCbuhB/E/TeF5uyqyANBgTPP+/jiQAvm/EemGeRYSGUhQ6avYRREprwQ8Q2tY5YGnSOUPiALHsNQGQ==
+"@ledgerhq/wallet-api-client@0.11.0", "@ledgerhq/wallet-api-client@^0.11.0":
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/wallet-api-client/-/wallet-api-client-0.11.0.tgz#2a9580f4eeda12ffbaec7c0d756c7e899dd6af05"
+  integrity sha512-IW51CCmgX9g3J7fjyYQbastT1v75P7sbdoQpqQwpSe2VWX+TEDvQzjF7hQdAiB7C441wlDIUr892Gz8OUvb2Fg==
   dependencies:
     "@ledgerhq/hw-transport" "^6.27.6"
-    "@ledgerhq/wallet-api-core" "0.8.0"
+    "@ledgerhq/wallet-api-core" "0.10.0"
     bignumber.js "^9.0.2"
     json-rpc-2.0 "^1.1.0"
 
-"@ledgerhq/wallet-api-core@0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@ledgerhq/wallet-api-core/-/wallet-api-core-0.8.0.tgz#c5eda4fd85f503540bd005a9c543a2edc7462c4d"
-  integrity sha512-I2u7Xmqjzc8tGqEN83iyk1Y88ND5BVDHHudoWaqVetvbzmofuqnR/t1dCcZMYB5VZuLdgyWJFasrpyWl8oGXrA==
+"@ledgerhq/wallet-api-core@0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/wallet-api-core/-/wallet-api-core-0.10.0.tgz#77811c1d45d4634cebd21800a6630fa2d71026f2"
+  integrity sha512-pjDUfnmQoG2B8qcGYZ+n3crKdh8vNPCWcVIT7eZAgurvdwuAw0Hfy/+CqgIYEkF1bbBVprlyNJPhGvLxc5RsuQ==
   dependencies:
+    "@ledgerhq/errors" "^6.12.1"
     bignumber.js "^9.0.2"
     uuid "^9.0.0"
     zod "^3.19.1"
 
-"@ledgerhq/wallet-api-server@0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@ledgerhq/wallet-api-server/-/wallet-api-server-0.8.1.tgz#b510ea13532cda673698bfd30481cf3d69fc3db9"
-  integrity sha512-IFaymiQnqSQpcOQgMSQzIJ4veKI6T/GNlP5Ggf6/2MWwckx1vofywExV3aaLJ4ehrjTFhMTET7HeDEkQGfy2lw==
+"@ledgerhq/wallet-api-server@0.10.0":
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/wallet-api-server/-/wallet-api-server-0.10.0.tgz#5048159ca86ec2010c982f384f2c0b122f478cc7"
+  integrity sha512-Wd0U1j7dFzd32Drj63knk2rnNWWJPlZJniyPRAfEImKGsF6FPm4RUb8Fjr5VAn3Qd/cvEQZZHM93Q2KN2rRIYg==
   dependencies:
-    "@ledgerhq/wallet-api-core" "0.8.0"
+    "@ledgerhq/wallet-api-core" "0.10.0"
     bignumber.js "^9.0.2"
     json-rpc-2.0 "^1.1.0"
     picomatch "^2.3.1"
-    rxjs "^7.5.7"
+    rxjs "^7.8.0"
 
-"@ledgerhq/wallet-api-simulator@^0.7.2":
-  version "0.7.2"
-  resolved "https://registry.yarnpkg.com/@ledgerhq/wallet-api-simulator/-/wallet-api-simulator-0.7.2.tgz#5269ebc9ce660a0cb61ede3290ce842d04d2f988"
-  integrity sha512-F74u+F45MxQxdK8iQxAhLL1bh30YpIlERX/w4vuG8AVSXPTgROdapKP8vFqaJZYj71LhvcueRhxBhnXg/cV2EQ==
+"@ledgerhq/wallet-api-simulator@^0.9.0":
+  version "0.9.0"
+  resolved "https://registry.yarnpkg.com/@ledgerhq/wallet-api-simulator/-/wallet-api-simulator-0.9.0.tgz#363884a98f1c20ca10c9795d31d241826c1fb057"
+  integrity sha512-EEbIwd9ERMagaf3aCAhAHUO60otsRLsRjTYhsY5WyZLM6xCfgVEj+euMzN5sQoviKnkeifKctZe1l5DG8QB9lg==
   dependencies:
     "@ledgerhq/hw-transport-http" "^6.27.7"
-    "@ledgerhq/wallet-api-client" "0.8.0"
-    "@ledgerhq/wallet-api-core" "0.8.0"
-    "@ledgerhq/wallet-api-server" "0.8.1"
-    rxjs "^7.5.7"
+    "@ledgerhq/wallet-api-client" "0.11.0"
+    "@ledgerhq/wallet-api-core" "0.10.0"
+    "@ledgerhq/wallet-api-server" "0.10.0"
+    rxjs "^7.8.0"
     ws "^8.10.0"
 
 "@napi-rs/triples@^1.0.3":
@@ -3738,10 +3739,10 @@ rxjs@6, rxjs@^6.6.7:
   dependencies:
     tslib "^1.9.0"
 
-rxjs@^7.5.7:
-  version "7.6.0"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.6.0.tgz#361da5362b6ddaa691a2de0b4f2d32028f1eb5a2"
-  integrity sha512-DDa7d8TFNUalGC9VqXvQ1euWNN7sc63TrUCuM9J998+ViviahMIjKSOU7rfcgFOF+FCD71BhDRv4hrFz+ImDLQ==
+rxjs@^7.8.0:
+  version "7.8.0"
+  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-7.8.0.tgz#90a938862a82888ff4c7359811a595e14e1e09a4"
+  integrity sha512-F2+gxDshqmIub1KdvZkaEfGDwLNpPvk9Fs6LD/MyQxNgMds/WH9OdDDXOmxUZpME+iSK3rQCctkL0DYyytUqMg==
   dependencies:
     tslib "^2.1.0"
 
