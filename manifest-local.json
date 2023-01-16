@@ -1,31 +1,36 @@
 {
-    "id": "debug",
-    "name": "Debugger",
-    "url": "http://localhost:3000/v2",
-    "homepageUrl": "https://developers.ledger.com/",
-    "icon": "https://cdn.live.ledger.com/icons/platform/debugger.png",
-    "platform": "all",
-    "apiVersion": "0.0.1",
-    "manifestVersion": "1",
-    "branch": "debug",
-    "categories": [
-      "tools"
-    ],
-    "currencies": "*",
-    "content": {
-      "shortDescription": {
-        "en": "Try out the Ledger Live API to test capabilities of our platform integration solution. Use at your own risk."
-      },
-      "description": {
-        "en": "Try out the Ledger Live API to test capabilities of our platform integration solution. Use at your own risk."
-      }
+  "id": "debug",
+  "name": "Debugger",
+  "url": "http://localhost:3000",
+  "homepageUrl": "https://developers.ledger.com/",
+  "icon": "https://cdn.live.ledger.com/icons/platform/debugger.png",
+  "platform": "all",
+  "apiVersion": "^2.0.0 || ^1.0.0",
+  "manifestVersion": "1",
+  "branch": "debug",
+  "categories": ["tools"],
+  "currencies": "*",
+  "content": {
+    "shortDescription": {
+      "en": "Try out the Ledger Live API to test capabilities of our platform integration solution. Use at your own risk."
     },
-    "permissions": [
-      {
-        "method": "*"
-      }
-    ],
-    "domains": [
-      "https://*"
-    ]
-  }
+    "description": {
+      "en": "Try out the Ledger Live API to test capabilities of our platform integration solution. Use at your own risk."
+    }
+  },
+  "permissions": [
+    "account.list",
+    "account.receive",
+    "account.request",
+    "currency.list",
+    "device.close",
+    "device.exchange",
+    "device.transport",
+    "message.sign",
+    "transaction.sign",
+    "transaction.signAndBroadcast",
+    "wallet.capabilities",
+    "bitcoin.getXPub"
+  ],
+  "domains": ["https://*"]
+}

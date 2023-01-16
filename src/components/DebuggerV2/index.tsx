@@ -92,8 +92,36 @@ function OptionComponent(props: any) {
 
 async function getState(sdk: WalletAPIClient): Promise<DebuggerContext> {
   const [accounts, currencies] = await Promise.all([
-    sdk.listAccounts({ currencyIds: ["ethereum"] }),
-    sdk.listCurrencies({ currencyIds: ["ethereum"] }),
+    sdk.listAccounts({
+      currencyIds: [
+        "bitcoin",
+        "ethereum",
+        "algorand",
+        "crypto_org",
+        "ripple",
+        "cosmos",
+        "tezos",
+        "polkadot",
+        "stellar",
+        "tron",
+        "dogecoin",
+      ],
+    }),
+    sdk.listCurrencies({
+      currencyIds: [
+        "bitcoin",
+        "ethereum",
+        "algorand",
+        "crypto_org",
+        "ripple",
+        "cosmos",
+        "tezos",
+        "polkadot",
+        "stellar",
+        "tron",
+        "dogecoin",
+      ],
+    }),
   ]);
 
   return {
